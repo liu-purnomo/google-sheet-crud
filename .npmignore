@@ -1,0 +1,9 @@
+# Ignore everything except dist/
+src/
+__tests__/
+node_modules/
+tsconfig.json
+.eslintrc.js
+jest.config.js
+*.log
+.env

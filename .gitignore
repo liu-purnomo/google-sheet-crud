@@ -1,0 +1,7 @@
+# Ignore everything except dist/
+dist/
+__tests__/
+node_modules/
+.eslintrc.js
+*.log
+.env

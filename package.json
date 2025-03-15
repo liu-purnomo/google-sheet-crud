@@ -1,0 +1,50 @@
+{
+  "name": "google-sheet-crud",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "jest",
+    "example": "node dist/examples/example.js",
+    "example:create": "node dist/examples/create.js",
+    "example:bulkCreate": "node dist/examples/bulkCreate.js",
+    "example:delete": "node dist/examples/delete.js",
+    "example:update": "node dist/examples/update.js"
+  },
+  "keywords": [
+    "Google Sheets",
+    "CRUD",
+    "API",
+    "Node.js",
+    "TypeScript"
+  ],
+  "author": "Liu Purnomo <hi@liupurnomo.com>",
+  "license": "MIT",
+  "description": "Google Sheet CRUD - A simple library for interacting with Google Sheets using Node.js.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liu-purnomo/google-sheet-crud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/liu-purnomo/google-sheet-crud/issues"
+  },
+  "homepage": "https://github.com/liu-purnomo/google-sheet-crud#readme",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "eslint": "^9.22.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "ts-jest": "^29.2.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "googleapis": "^146.0.0"
+  }
+}
