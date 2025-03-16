@@ -12,7 +12,7 @@ interface UpdateProps extends CreateProps {
 
 interface RemoveProps {
   sheetId: string;
-  sheet: string;
+  range: string;
   id: number;
 }
 
@@ -98,7 +98,7 @@ export class GoogleSheetService {
    * @param {RemoveProps} params - Parameters for deleting data.
    * @returns {Promise<any>} - Response from Google Sheets API.
    */
-  async delete({ sheetId, sheet, id }: RemoveProps) {
-    return await this.sheetInstance.delete(sheetId, sheet, id);
+  async delete({ sheetId, range, id }: RemoveProps) {
+    return await this.sheetInstance.delete(sheetId, range, id);
   }
 }

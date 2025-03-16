@@ -1,103 +1,158 @@
-# Google Sheet CRUD Service
+# GoogleSheetService Documentation
 
-A simple TypeScript-based service for interacting with Google Sheets using the Google Sheets API. This package provides methods for creating, updating, retrieving, and deleting data in Google Sheets.
+## Overview
+
+The `GoogleSheetService` class provides an abstraction for interacting with Google Sheets. It allows users to perform CRUD operations (Create, Read, Update, Delete) efficiently.
+
+## Prerequisites
+
+Before using this service, ensure you have the following:
+
+1. **Google IAM Service Account**: You must create a Google IAM service account and obtain its credentials (`client_email` and `private_key`).
+2. **Google Sheets Setup**:
+   - The first row of your Google Sheet must contain headers.
+   - Column `A` should be named `id`.
+   - The range should start from `A1`.
 
 ## Installation
+
+To use this package, install it via NPM:
 
 ```sh
 npm install google-sheet-crud
 ```
 
-## Setup
+## Class: GoogleSheetService
 
-You need to provide Google API credentials (client_email and private_key). These credentials should be obtained from Google Cloud Platform.
+### Constructor
 
-## Usage
+```ts
+constructor(credentials: { client_email: string; private_key: string })
+```
 
-### Importing the Service
+- Initializes the `GoogleSheetService` instance with Google API credentials.
+
+## Methods
+
+### 1. `create`
+
+```ts
+async create({ sheetId, range, data }: CreateProps): Promise<any>
+```
+
+**Parameters:**
+- `sheetId`: The ID of the Google Sheet.
+- `range`: The range where data will be added (e.g., `Sheet1!A1:D1`).
+- `data`: An object containing key-value pairs of data.
+
+**Usage Example:**
 
 ```ts
 import { GoogleSheetService } from 'google-sheet-crud';
 
-const credentials = {
-  client_email: 'your-service-account@your-project.iam.gserviceaccount.com',
-  private_key: 'your-private-key',
-};
+const googleSheetService = new GoogleSheetService({
+  client_email: 'your-service-account-email',
+  private_key: 'your-private-key'
+});
 
-const sheetService = new GoogleSheetService(credentials);
-```
-
-### Create a New Row
-
-```ts
-await sheetService.create({
+await googleSheetService.create({
   sheetId: 'your-sheet-id',
-  range: 'Sheet1!A2:E',
-  data: {
-    name: 'John Doe',
-    email: 'john@example.com',
-    age: 30,
-    isActive: true,
-    createdAt: new Date(),
-  },
+  range: 'Sheet1!A1:D1',
+  data: { id: 1, name: 'John Doe', age: 30, active: true }
 });
 ```
 
-### Bulk Create Multiple Rows
+### 2. `bulkCreate`
 
 ```ts
-await sheetService.bulkCreate({
+async bulkCreate({ sheetId, range, data }: bulkCreateProps): Promise<any>
+```
+
+**Parameters:**
+- `sheetId`: The ID of the Google Sheet.
+- `range`: The range where data will be added.
+- `data`: An array of objects containing key-value pairs.
+
+**Usage Example:**
+
+```ts
+await googleSheetService.bulkCreate({
   sheetId: 'your-sheet-id',
-  range: 'Sheet1!A2:E',
+  range: 'Sheet1!A1:D1',
   data: [
-    { name: 'Alice', email: 'alice@example.com', age: 28, isActive: true, createdAt: new Date() },
-    { name: 'Bob', email: 'bob@example.com', age: 35, isActive: false, createdAt: new Date() },
-  ],
+    { id: 1, name: 'John Doe', age: 30, active: true },
+    { id: 2, name: 'Jane Doe', age: 25, active: false }
+  ]
 });
 ```
 
-### Update a Row by ID
+### 3. `update`
 
 ```ts
-await sheetService.update({
+async update({ sheetId, range, id, data }: UpdateProps): Promise<any>
+```
+
+**Parameters:**
+- `sheetId`: The ID of the Google Sheet.
+- `range`: The range where data exists.
+- `id`: The ID of the row to update.
+- `data`: An object containing the updated key-value pairs.
+
+**Usage Example:**
+
+```ts
+await googleSheetService.update({
   sheetId: 'your-sheet-id',
-  range: 'Sheet1!A2:E',
-  id: 5, // Row ID
-  data: {
-    name: 'Updated Name',
-    email: 'updated@example.com',
-    age: 32,
-    isActive: false,
-    createdAt: new Date(),
-  },
+  range: 'Sheet1!A1:D1',
+  id: 1,
+  data: { name: 'John Updated', age: 31 }
 });
 ```
 
-### Retrieve Data
+### 4. `get`
 
 ```ts
-const data = await sheetService.get({
+async get({ sheetId, range }: GetProps): Promise<any>
+```
+
+**Parameters:**
+- `sheetId`: The ID of the Google Sheet.
+- `range`: The range to retrieve data from.
+
+**Usage Example:**
+
+```ts
+const data = await googleSheetService.get({
   sheetId: 'your-sheet-id',
-  range: 'Sheet1!A2:E',
+  range: 'Sheet1!A1:D10'
 });
 console.log(data);
 ```
 
-### Delete a Row by ID
+### 5. `delete`
 
 ```ts
-await sheetService.delete({
+async delete({ sheetId, range, id }: RemoveProps): Promise<any>
+```
+
+**Parameters:**
+- `sheetId`: The ID of the Google Sheet.
+- `range`: The range where data exists.
+- `id`: The ID of the row to delete.
+
+**Usage Example:**
+
+```ts
+await googleSheetService.delete({
   sheetId: 'your-sheet-id',
-  sheet: 'Sheet1',
-  id: 5, // Row ID to delete
+  range: 'Sheet1!A1:D1',
+  id: 1
 });
 ```
 
-## License
+## Additional Information
 
-This project is licensed under the MIT License.
-
-## Author
-
-[Liu Purnomo](https://github.com/liu-purnomo)
+- Repository: [GitHub](https://github.com/liu-purnomo/google-sheet-crud)
+- Full documentation: [Google Sheet CRUD Guide](https://liupurnomo.com/showcase/google-sheet-crud)
+- Use case example: [Simple Todo List](https://liupurnomo.com/showcase/simple-todo-list)
 
